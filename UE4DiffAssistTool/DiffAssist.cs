@@ -18,6 +18,7 @@ namespace UE4DiffAssistTool
         public DiffAssist()
         {
             InitializeComponent();
+            Properties.Settings.Default.PropertyChanged += Settings_PropertyChanged;
         }
 
         private void txtFile_DragEnter(object sender, DragEventArgs e)
@@ -28,23 +29,16 @@ namespace UE4DiffAssistTool
                 e.Effect = DragDropEffects.None;
         }
 
-        private void txtOldFile_DragDrop(object sender, DragEventArgs e)
+        private void File_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files != null && files.Length != 0)
             {
-                txtOldFile.Text = files[0];
-                UpdateDiffCommandDisplay();
-            }
-        }
-
-        private void txtNewFile_DragDrop(object sender, DragEventArgs e)
-        {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (files != null && files.Length != 0)
-            {
-                txtNewFile.Text = files[0];
-                UpdateDiffCommandDisplay();
+                if (sender is TextBox)
+                {
+                    ((TextBox)sender).Text = files[0];
+                    UpdateDiffCommandDisplay();
+                }
             }
         }
 
@@ -71,29 +65,11 @@ namespace UE4DiffAssistTool
         private void DiffAssist_Load(object sender, EventArgs e)
         {
             this.Size           = new System.Drawing.Size(Properties.Settings.Default.FormWidth, Properties.Settings.Default.FormHeight);
-            txtEditorPath.Text  = Properties.Settings.Default.UE4EditorPath;
-            txtOldFile.Text     = Properties.Settings.Default.LastOldFile;
-            txtNewFile.Text     = Properties.Settings.Default.LastNewFile;
             UpdateDiffCommandDisplay();
         }
 
-        private void txtEditorPath_TextChanged(object sender, EventArgs e)
+        private void Settings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Properties.Settings.Default.UE4EditorPath = txtEditorPath.Text;
-            Properties.Settings.Default.Save();
-            UpdateDiffCommandDisplay();
-        }
-
-        private void txtOldFile_TextChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.LastOldFile = txtOldFile.Text;
-            Properties.Settings.Default.Save();
-            UpdateDiffCommandDisplay();
-        }
-
-        private void txtNewfile_TextChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.LastNewFile = txtNewFile.Text;
             Properties.Settings.Default.Save();
             UpdateDiffCommandDisplay();
         }
@@ -112,11 +88,16 @@ namespace UE4DiffAssistTool
             Properties.Settings.Default.Save();
         }
 
+        private string GetArgumentString()
+        {
+            return $"\"{txtProjectFile.Text}\" -diff \"{txtNewFile.Text}\" \"{txtOldFile.Text}\"";
+        }
+
         private void btnDiff_Click(object sender, EventArgs e)
         {
             UpdateDiffCommandDisplay();
             ProcessStartInfo diffProcess = new ProcessStartInfo();
-            diffProcess.Arguments = "-diff \"" + txtNewFile.Text + "\" \"" + txtOldFile.Text + "\"";
+            diffProcess.Arguments = GetArgumentString();
             diffProcess.FileName = txtEditorPath.Text;
             Process.Start(diffProcess);
         }
@@ -132,12 +113,7 @@ namespace UE4DiffAssistTool
 
             btnShowDiff.Text = "Hide Diff Command";
 
-            DiffCommand = txtEditorPath.Text
-                        + " -diff \""
-                        + txtNewFile.Text
-                        + "\" \""
-                        + txtOldFile.Text
-                        + "\"";
+            DiffCommand = $"\"{txtEditorPath.Text}\" {GetArgumentString()}";
 
             txtDiffCommand.Text = DiffCommand;
 

@@ -38,6 +38,8 @@
             this.btnShowDiff = new System.Windows.Forms.Button();
             this.txtDiffCommand = new System.Windows.Forms.TextBox();
             this.lblInstructions = new System.Windows.Forms.Label();
+            this.txtProjectFile = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtEditorPath
@@ -45,11 +47,12 @@
             this.txtEditorPath.AllowDrop = true;
             this.txtEditorPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtEditorPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UE4DiffAssistTool.Properties.Settings.Default, "UE4EditorPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtEditorPath.Location = new System.Drawing.Point(147, 50);
             this.txtEditorPath.Name = "txtEditorPath";
-            this.txtEditorPath.Size = new System.Drawing.Size(419, 20);
+            this.txtEditorPath.Size = new System.Drawing.Size(413, 20);
             this.txtEditorPath.TabIndex = 0;
-            this.txtEditorPath.TextChanged += new System.EventHandler(this.txtEditorPath_TextChanged);
+            this.txtEditorPath.Text = global::UE4DiffAssistTool.Properties.Settings.Default.UE4EditorPath;
             this.txtEditorPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtEditorPath_DragDrop);
             this.txtEditorPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFile_DragEnter);
             // 
@@ -65,7 +68,7 @@
             // lblOldFile
             // 
             this.lblOldFile.AutoSize = true;
-            this.lblOldFile.Location = new System.Drawing.Point(12, 92);
+            this.lblOldFile.Location = new System.Drawing.Point(12, 118);
             this.lblOldFile.Name = "lblOldFile";
             this.lblOldFile.Size = new System.Drawing.Size(42, 13);
             this.lblOldFile.TabIndex = 2;
@@ -74,7 +77,7 @@
             // lblNewFile
             // 
             this.lblNewFile.AutoSize = true;
-            this.lblNewFile.Location = new System.Drawing.Point(12, 118);
+            this.lblNewFile.Location = new System.Drawing.Point(12, 144);
             this.lblNewFile.Name = "lblNewFile";
             this.lblNewFile.Size = new System.Drawing.Size(48, 13);
             this.lblNewFile.TabIndex = 3;
@@ -85,31 +88,33 @@
             this.txtOldFile.AllowDrop = true;
             this.txtOldFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOldFile.Location = new System.Drawing.Point(74, 89);
+            this.txtOldFile.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UE4DiffAssistTool.Properties.Settings.Default, "LastOldFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtOldFile.Location = new System.Drawing.Point(74, 115);
             this.txtOldFile.Name = "txtOldFile";
-            this.txtOldFile.Size = new System.Drawing.Size(492, 20);
+            this.txtOldFile.Size = new System.Drawing.Size(486, 20);
             this.txtOldFile.TabIndex = 5;
-            this.txtOldFile.TextChanged += new System.EventHandler(this.txtOldFile_TextChanged);
-            this.txtOldFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtOldFile_DragDrop);
+            this.txtOldFile.Text = global::UE4DiffAssistTool.Properties.Settings.Default.LastOldFile;
+            this.txtOldFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.File_DragDrop);
             this.txtOldFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFile_DragEnter);
             // 
-            // txtNewfile
+            // txtNewFile
             // 
             this.txtNewFile.AllowDrop = true;
             this.txtNewFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNewFile.Location = new System.Drawing.Point(74, 115);
-            this.txtNewFile.Name = "txtNewfile";
-            this.txtNewFile.Size = new System.Drawing.Size(492, 20);
+            this.txtNewFile.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UE4DiffAssistTool.Properties.Settings.Default, "LastNewFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtNewFile.Location = new System.Drawing.Point(74, 141);
+            this.txtNewFile.Name = "txtNewFile";
+            this.txtNewFile.Size = new System.Drawing.Size(486, 20);
             this.txtNewFile.TabIndex = 6;
-            this.txtNewFile.TextChanged += new System.EventHandler(this.txtNewfile_TextChanged);
-            this.txtNewFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtNewFile_DragDrop);
+            this.txtNewFile.Text = global::UE4DiffAssistTool.Properties.Settings.Default.LastNewFile;
+            this.txtNewFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.File_DragDrop);
             this.txtNewFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFile_DragEnter);
             // 
             // btnDiff
             // 
             this.btnDiff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDiff.Location = new System.Drawing.Point(491, 141);
+            this.btnDiff.Location = new System.Drawing.Point(485, 167);
             this.btnDiff.Name = "btnDiff";
             this.btnDiff.Size = new System.Drawing.Size(75, 23);
             this.btnDiff.TabIndex = 7;
@@ -119,7 +124,7 @@
             // 
             // btnShowDiff
             // 
-            this.btnShowDiff.Location = new System.Drawing.Point(12, 141);
+            this.btnShowDiff.Location = new System.Drawing.Point(12, 167);
             this.btnShowDiff.Name = "btnShowDiff";
             this.btnShowDiff.Size = new System.Drawing.Size(150, 23);
             this.btnShowDiff.TabIndex = 9;
@@ -132,12 +137,12 @@
             this.txtDiffCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDiffCommand.Location = new System.Drawing.Point(12, 170);
+            this.txtDiffCommand.Location = new System.Drawing.Point(12, 196);
             this.txtDiffCommand.MaxLength = 65535;
             this.txtDiffCommand.Multiline = true;
             this.txtDiffCommand.Name = "txtDiffCommand";
             this.txtDiffCommand.ReadOnly = true;
-            this.txtDiffCommand.Size = new System.Drawing.Size(554, 129);
+            this.txtDiffCommand.Size = new System.Drawing.Size(548, 150);
             this.txtDiffCommand.TabIndex = 10;
             // 
             // lblInstructions
@@ -150,11 +155,36 @@
             this.lblInstructions.Text = "Instructions: Drag and Drop files to the boxes below. Click on Diff Files button " +
     "when ready.";
             // 
+            // txtProjectFile
+            // 
+            this.txtProjectFile.AllowDrop = true;
+            this.txtProjectFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtProjectFile.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::UE4DiffAssistTool.Properties.Settings.Default, "ProjectFile", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtProjectFile.Location = new System.Drawing.Point(74, 89);
+            this.txtProjectFile.Name = "txtProjectFile";
+            this.txtProjectFile.Size = new System.Drawing.Size(486, 20);
+            this.txtProjectFile.TabIndex = 13;
+            this.txtProjectFile.Text = global::UE4DiffAssistTool.Properties.Settings.Default.ProjectFile;
+            this.txtProjectFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.File_DragDrop);
+            this.txtProjectFile.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtFile_DragEnter);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 92);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Project File";
+            // 
             // DiffAssist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 311);
+            this.ClientSize = new System.Drawing.Size(578, 358);
+            this.Controls.Add(this.txtProjectFile);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblInstructions);
             this.Controls.Add(this.txtDiffCommand);
             this.Controls.Add(this.btnShowDiff);
@@ -187,6 +217,8 @@
         private System.Windows.Forms.Button btnShowDiff;
         private System.Windows.Forms.TextBox txtDiffCommand;
         private System.Windows.Forms.Label lblInstructions;
+        private System.Windows.Forms.TextBox txtProjectFile;
+        private System.Windows.Forms.Label label1;
     }
 }
 
